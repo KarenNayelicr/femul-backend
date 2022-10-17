@@ -21,7 +21,8 @@ exports.guardaEvento = async function (req, res = response) {
     nombreImg = nombreImg.replace(/ /g, "")
     const extensionImg = req.body.extensionImg;//-
     let base64Data = (req.body.previewImage)//-
-    let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
+    //let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
+    let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`    
 
 
 

@@ -18,6 +18,9 @@
     "start:dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "v14.18.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

@@ -22,8 +22,16 @@ exports.guardaEvento = async function (req, res = response) {
     const extensionImg = req.body.extensionImg;//-
     let base64Data = (req.body.previewImage)//-
     //let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
-    let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`    
+    let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`
 
+
+
+    let consulCodigo = await query(`select * from tb_eventos where codigo = '${codigo}';`);
+    
+
+    if(consulCodigo.length >=1){
+      return res.status(200).json({ code: 210, status: false, message: 'Código existente' });
+    }
 
 
     if (extensionImg === 'jpeg') {
@@ -96,6 +104,7 @@ exports.editarEvento = async function (req, res = response) {
     const codigo = req.body.codigo;//-
     const coordinador = req.body.coordinador.toUpperCase();//-
     const costo = req.body.costo;//-
+    const estado = req.body.estado;//-
     const tituloEvento = req.body.titulo.toUpperCase();//-
     const tipoEvento = req.body.tipoEvento.toUpperCase();//-
     const lugar = req.body.lugar.toUpperCase(); //-
@@ -116,6 +125,7 @@ exports.editarEvento = async function (req, res = response) {
     console.log(lugar);
     console.log(fecha);
     console.log(hora);
+    console.log(estado);
     console.log(pdf);
     console.log('idEvento: ' + idEvento);
 
@@ -141,7 +151,7 @@ exports.editarEvento = async function (req, res = response) {
         console.log('Archivo guardado con éxito')
 
 
-        let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', rutaImg = '${rutaImg}', pdf = '${pdf}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento};`);
+        let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', rutaImg = '${rutaImg}', pdf = '${pdf}', estado = '${estado}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento};`);
 
         return res.status(200).json({ code: 200, status: true, message: 'Información Editada con éxito' });
 
@@ -150,7 +160,7 @@ exports.editarEvento = async function (req, res = response) {
     } else {
       console.log('me ingresa por el else SIN Imagen');
 
-      let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', pdf = '${pdf}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento}`);
+      let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', pdf = '${pdf}', estado = '${estado}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento}`);
 
       return res.status(200).json({ code: 200, status: true, message: 'Información Editada con éxito sin imagen' });
 

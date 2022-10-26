@@ -1,5 +1,6 @@
 const { response } = require("express");
 const { query } = require('../../database/conexion');
+const { claveInicioUser } = require("../../notificaciones/CorreoUserRegistro/correoRegistroUser")
 
 exports.agregarParticipantes = async function (req, res = response) {
 
@@ -18,7 +19,7 @@ exports.agregarParticipantes = async function (req, res = response) {
         const idEvento = Number(req.body.id);
         let idParticipante = "";
 
-        console.group('Datos recibidos')
+/*         console.group('Datos recibidos')
             console.log('nombres: ' + nombres);
             console.log('dni: ' + dni);
             console.log('institucion: ' + institucion);
@@ -30,7 +31,7 @@ exports.agregarParticipantes = async function (req, res = response) {
             console.log('movil: ' + movil);
             console.log('telefono: ' + telefono);
             console.log('idEvento: ' + idEvento);    
-        console.groupEnd();
+        console.groupEnd(); */
         
         //********INICIO LA TRANSSACION*********/
         await query('START TRANSACTION')
@@ -63,6 +64,8 @@ exports.agregarParticipantes = async function (req, res = response) {
                     
             //********FINALIZO TRANSSACION Y LA GUARDO SI TODO ESTA OK*********/
             await query('COMMIT')
+            
+            await claveInicioUser(email, 'Prueba', nombres);
 
             return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito'});
 

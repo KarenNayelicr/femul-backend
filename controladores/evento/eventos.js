@@ -11,6 +11,7 @@ exports.guardaEvento = async function (req, res = response) {
     const codigo = req.body.codigo;//-
     const coordinador = req.body.coordinador.toUpperCase();//-
     const costo = req.body.costo;//-
+    const calificacion = req.body.texto;//-
     const tituloEvento = req.body.titulo.toUpperCase();//-
     const tipoEvento = req.body.tipoEvento.toUpperCase();//-
     const lugar = req.body.lugar.toUpperCase(); //-
@@ -21,8 +22,8 @@ exports.guardaEvento = async function (req, res = response) {
     nombreImg = nombreImg.replace(/ /g, "")
     const extensionImg = req.body.extensionImg;//-
     let base64Data = (req.body.previewImage)//-
-    //let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
-    let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`
+    let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
+    //let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`
 
 
 
@@ -55,7 +56,7 @@ exports.guardaEvento = async function (req, res = response) {
 
         try {
                 
-        let ingresarEvento = await query(`insert into tb_eventos(codigo, tituloEvento, tipoEvento, coordinador, costo, fecha, hora, lugar, rutaImg, pdf, usuario) values ('${codigo}','${tituloEvento}','${tipoEvento}','${coordinador}','${costo}','${fecha}','${hora}','${lugar}','${rutaImg}','${pdf}','${tokenAuth}')`);
+        let ingresarEvento = await query(`insert into tb_eventos(codigo, tituloEvento, tipoEvento, coordinador, costo, fecha, hora, lugar, rutaImg, pdf, calificacion, usuario) values ('${codigo}','${tituloEvento}','${tipoEvento}','${coordinador}','${costo}','${fecha}','${hora}','${lugar}','${rutaImg}','${pdf}','${calificacion}','${tokenAuth}')`);
 
         return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito' });
 
@@ -101,10 +102,10 @@ exports.editarEvento = async function (req, res = response) {
     console.log('ingresa a editar registro');
 
     const tokenAuth = req.body.usuario.toUpperCase();//-
-    const codigo = req.body.codigo;//-
     const coordinador = req.body.coordinador.toUpperCase();//-
     const costo = req.body.costo;//-
     const estado = req.body.estado;//-
+    const calificacion = req.body.texto;//-
     const tituloEvento = req.body.titulo.toUpperCase();//-
     const tipoEvento = req.body.tipoEvento.toUpperCase();//-
     const lugar = req.body.lugar.toUpperCase(); //-
@@ -115,19 +116,20 @@ exports.editarEvento = async function (req, res = response) {
     let nombreImg = req.body.nombreImg;//-
 
 
-
+/* 
     console.log(tokenAuth);
     console.log(codigo);
     console.log(coordinador);
     console.log(costo);
     console.log(tituloEvento);
     console.log(tipoEvento);
+    console.log(calificacion);
     console.log(lugar);
     console.log(fecha);
     console.log(hora);
     console.log(estado);
     console.log(pdf);
-    console.log('idEvento: ' + idEvento);
+    console.log('idEvento: ' + idEvento); */
 
 
     if (nombreImg != "") {
@@ -135,8 +137,8 @@ exports.editarEvento = async function (req, res = response) {
       nombreImg = nombreImg.replace(/ /g, "")
       const extensionImg = req.body.extensionImg;//-
       let base64Data = (req.body.previewImage)//-
-      //let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
-      let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`
+      let rutaImg = `http://localhost:3000/api/auth/cargaPhotoEvento/${nombreImg}`
+      //let rutaImg = `https://app-femulp.herokuapp.com/api/auth/cargaPhotoEvento/${nombreImg}`
 
       if (extensionImg === 'jpeg') {
         strImage = base64Data.replace("data:image/jpeg;base64,", "");
@@ -151,7 +153,7 @@ exports.editarEvento = async function (req, res = response) {
         console.log('Archivo guardado con éxito')
 
 
-        let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', rutaImg = '${rutaImg}', pdf = '${pdf}', estado = '${estado}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento};`);
+        let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', rutaImg = '${rutaImg}', pdf = '${pdf}', estado = '${estado}', calificacion = '${calificacion}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento};`);
 
         return res.status(200).json({ code: 200, status: true, message: 'Información Editada con éxito' });
 
@@ -160,7 +162,7 @@ exports.editarEvento = async function (req, res = response) {
     } else {
       console.log('me ingresa por el else SIN Imagen');
 
-      let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', pdf = '${pdf}', estado = '${estado}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento}`);
+      let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', pdf = '${pdf}', estado = '${estado}', calificacion = '${calificacion}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento}`);
 
       return res.status(200).json({ code: 200, status: true, message: 'Información Editada con éxito sin imagen' });
 

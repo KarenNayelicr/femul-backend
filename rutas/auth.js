@@ -2,6 +2,7 @@ const { Router } = require("express");
 const AuthRoutes = Router();
 const { consultasABC, consultas123 } = require("../controladores/consultas");
 const { loginIngreso, sesionActiva } = require("../controladores/user/login");
+const { consultarParticipantes, agregarParticipantes } = require("../controladores/participantes/participantes")
 const { guardaEvento, cargaPhotoEvento, cargaEventos, cargaEventosRegistro, editarEvento } = require("../controladores/evento/eventos");
 
 
@@ -17,7 +18,9 @@ AuthRoutes.get("/cargaPhotoEvento/:id", cargaPhotoEvento);
 AuthRoutes.get("/cargaEventos", cargaEventos);
 AuthRoutes.get("/cargaEventosRegistro/:id", cargaEventosRegistro);
 
-
+/* Participantes */
+AuthRoutes.get("/consultarParticipantes/:dni", consultarParticipantes); //agregarParticipantes
+AuthRoutes.post("/agregarParticipantes", agregarParticipantes);
 
 /* Rutas de Ejemplo*/
 AuthRoutes.get("/consultas", consultasABC);

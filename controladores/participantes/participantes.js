@@ -19,7 +19,7 @@ exports.agregarParticipantes = async function (req, res = response) {
         const idEvento = Number(req.body.id);
         let idParticipante = "";
 
-/*         console.group('Datos recibidos')
+         console.group('Datos recibidos')
             console.log('nombres: ' + nombres);
             console.log('dni: ' + dni);
             console.log('institucion: ' + institucion);
@@ -31,10 +31,10 @@ exports.agregarParticipantes = async function (req, res = response) {
             console.log('movil: ' + movil);
             console.log('telefono: ' + telefono);
             console.log('idEvento: ' + idEvento);    
-        console.groupEnd(); */
+        console.groupEnd(); 
         
         //********INICIO LA TRANSSACION*********/
-        await query('START TRANSACTION')
+        //await query('START TRANSACTION')
 
         let consulParticipantes = await query(`select * from tb_participantes where dni = '${dni}';`);
 
@@ -63,7 +63,7 @@ exports.agregarParticipantes = async function (req, res = response) {
             let aggGestion = await query(`insert into tb_gestion(fk_participante, fk_evento) values (${idParticipante}, ${idEvento})`);
                     
             //********FINALIZO TRANSSACION Y LA GUARDO SI TODO ESTA OK*********/
-            await query('COMMIT')
+            //await query('COMMIT')
             
             //await claveInicioUser(email, 'Prueba', nombres);
 
@@ -73,7 +73,7 @@ exports.agregarParticipantes = async function (req, res = response) {
     } catch (e) {
         console.log('ingresa al error');
         /*BORRO LOS REGISTROS PARA QUE NO SE GUARDEN POR EL ERROR */
-        await query('ROLLBACK')        
+        //await query('ROLLBACK')        
         return res.status(400).json({ status: 400, message: e.message });
       }
 };

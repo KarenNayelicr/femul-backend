@@ -34,7 +34,7 @@ exports.agregarParticipantes = async function (req, res = response) {
         console.groupEnd(); 
         
         //********INICIO LA TRANSSACION*********/
-        //await query('START TRANSACTION')
+        await query('START TRANSACTION')
         let consulEvento = await query(`select * from tb_eventos where codigo = ${codigoEvento};`);
         //console.log(consulEvento);
         let idEvento = consulEvento[0]['id_evento'];
@@ -71,7 +71,7 @@ exports.agregarParticipantes = async function (req, res = response) {
             let aggGestion = await query(`insert into tb_gestion(fk_participante, fk_evento) values (${idParticipante}, ${idEvento})`);
                     
             //********FINALIZO TRANSSACION Y LA GUARDO SI TODO ESTA OK*********/
-            //await query('COMMIT')
+            await query('COMMIT')
             //console.log(idEvento);
 
 
@@ -84,7 +84,7 @@ exports.agregarParticipantes = async function (req, res = response) {
         console.log('ingresa al error');
         console.log(e.message);
         /*BORRO LOS REGISTROS PARA QUE NO SE GUARDEN POR EL ERROR */
-        //await query('ROLLBACK')        
+        await query('ROLLBACK')
         return res.status(400).json({ status: 400, message: e.message });
       }
 };

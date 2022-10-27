@@ -27,13 +27,13 @@ app.use(bodyParser.json({limit: '10mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 
-app.listen(process.env.PORT || 3000) //Esto es para Heroku, asi se ejecuta el puerto
+//app.listen(process.env.PORT || 3000) //Esto es para Heroku, asi se ejecuta el puerto
 
 //inicializar express localmente
-/* app.listen(app.get('port'),(error)=>{
+app.listen(app.get('port'),(error)=>{
     if(error)
     {console.log('error al iniciar el servidor: '+error)}
     else{
         console.log('servidor iniciado en el prueto: '+port)
     }
-}) */
+})

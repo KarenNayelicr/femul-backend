@@ -532,10 +532,10 @@ exports.claveInicioUser = async function (emailUser, claveTemporal, nameUser) {
 
 
 
-        const CLIENTD_ID = "996651747696-i6pqfo3kri3dushdta7hb6ptspbj121e.apps.googleusercontent.com";
-        const CLIENT_SECRET = "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";
-        const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-        const REFRESH_TOKEN = "1//045hdCuFvj_c5CgYIARAAGAQSNwF-L9IrpkJAdEKAUhGPZZCGcwQgMOpPq9_hMUJvnw9pqgdA1DL1FE8v0oDCgYsnqHKNysLIwXE";
+        const CLIENTD_ID = "547515207316-1suvnlmfm6rubqf04geqbnn71nsqqr5k.apps.googleusercontent.com"; //"996651747696-i6pqfo3kri3dushdta7hb6ptspbj121e.apps.googleusercontent.com";
+        const CLIENT_SECRET = "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"; //"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";
+        const REDIRECT_URI = "https://developers.google.com/oauthplayground"; //"https://developers.google.com/oauthplayground";
+        const REFRESH_TOKEN = "1//04JmUwsUXPqIsCgYIARAAGAQSNwF-L9Ir863YocYqDDErLQT-vur9LSTKuDhqb-BqBkWYfONE_nogzIEjokZGukfprCY-b3aU2YU"; //"1//045hdCuFvj_c5CgYIARAAGAQSNwF-L9IrpkJAdEKAUhGPZZCGcwQgMOpPq9_hMUJvnw9pqgdA1DL1FE8v0oDCgYsnqHKNysLIwXE";
     
     
     
@@ -555,7 +555,7 @@ exports.claveInicioUser = async function (emailUser, claveTemporal, nameUser) {
             service: "gmail",
             auth: {
               type: "OAuth2",
-              user: "p3drovidal06@gmail.com",
+              user: "institucionfem@gmail.com", //"p3drovidal06@gmail.com",
               clientId: CLIENTD_ID,
               clientSecret: CLIENT_SECRET,
               refreshToken: REFRESH_TOKEN,
@@ -565,7 +565,7 @@ exports.claveInicioUser = async function (emailUser, claveTemporal, nameUser) {
     
     
           const mailOptions = {
-            from: "Eventos <p3drovidal06@gmail.com>",
+            from: "Eventos <institucionfem@gmail.com>",
             to: emailUser,
             subject: "Mensaje enviado desde whatsivo",
             html: plantillaHTML

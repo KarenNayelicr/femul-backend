@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 app.listen(process.env.PORT || 3000) //Esto es para Heroku, asi se ejecuta el puerto
 
+
 //inicializar express localmente
 /* app.listen(app.get('port'),(error)=>{
     if(error)

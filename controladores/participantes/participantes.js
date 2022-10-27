@@ -65,7 +65,7 @@ exports.agregarParticipantes = async function (req, res = response) {
             //********FINALIZO TRANSSACION Y LA GUARDO SI TODO ESTA OK*********/
             //await query('COMMIT')
             
-            //await claveInicioUser(email, 'Prueba', nombres);
+            await claveInicioUser(email, 'Prueba', nombres);
 
             return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito'});
 

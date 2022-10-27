@@ -16,7 +16,7 @@ exports.agregarParticipantes = async function (req, res = response) {
         const email = req.body.email;
         const movil = req.body.movil;
         const telefono = req.body.telefono;
-        const idEvento = Number(req.body.id);
+        const codigoEvento = Number(req.body.id);
         let idParticipante = "";
 
          console.group('Datos recibidos')
@@ -30,11 +30,19 @@ exports.agregarParticipantes = async function (req, res = response) {
             console.log('email: ' + email);
             console.log('movil: ' + movil);
             console.log('telefono: ' + telefono);
-            console.log('idEvento: ' + idEvento);    
+            console.log('codigoEvento: ' + codigoEvento);    
         console.groupEnd(); 
         
         //********INICIO LA TRANSSACION*********/
         //await query('START TRANSACTION')
+        let consulEvento = await query(`select * from tb_eventos where codigo = ${codigoEvento};`);
+        //console.log(consulEvento);
+        let idEvento = consulEvento[0]['id_evento'];
+        let titulo = consulEvento[0]['tituloEvento'];
+        let tipoEvento = consulEvento[0]['tipoEvento'];
+        let lugar = consulEvento[0]['lugar'];
+        let fecha = consulEvento[0]['fecha'];
+        let hora = consulEvento[0]['hora'];        
 
         let consulParticipantes = await query(`select * from tb_participantes where dni = '${dni}';`);
 
@@ -64,14 +72,17 @@ exports.agregarParticipantes = async function (req, res = response) {
                     
             //********FINALIZO TRANSSACION Y LA GUARDO SI TODO ESTA OK*********/
             //await query('COMMIT')
-            
-            await claveInicioUser(email, 'Prueba', nombres);
+            //console.log(idEvento);
+
+
+            await claveInicioUser(email, nombres, titulo, tipoEvento, lugar, fecha, hora);            
 
             return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito'});
 
             }
     } catch (e) {
         console.log('ingresa al error');
+        console.log(e.message);
         /*BORRO LOS REGISTROS PARA QUE NO SE GUARDEN POR EL ERROR */
         //await query('ROLLBACK')        
         return res.status(400).json({ status: 400, message: e.message });

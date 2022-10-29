@@ -57,7 +57,7 @@ exports.guardaEvento = async function (req, res = response) {
 
         try {
                 
-        let ingresarEvento = await query(`insert into tb_eventos(codigo, tituloEvento, tipoEvento, coordinador, costo, fecha, hora, lugar, rutaImg, pdf, calificacion, observacion, usuario) values ('${codigo}','${tituloEvento}','${tipoEvento}','${coordinador}','${costo}','${fecha}','${hora}','${lugar}','${rutaImg}','${pdf}','${calificacion}','${observacion}'${tokenAuth}')`);
+        let ingresarEvento = await query(`insert into tb_eventos(codigo, tituloEvento, tipoEvento, coordinador, costo, fecha, hora, lugar, rutaImg, pdf, calificacion, observacion, usuario) values ('${codigo}','${tituloEvento}','${tipoEvento}','${coordinador}','${costo}','${fecha}','${hora}','${lugar}','${rutaImg}','${pdf}','${calificacion}','${observacion}','${tokenAuth}')`);
 
         return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito' });
 
@@ -92,6 +92,7 @@ exports.guardaEvento = async function (req, res = response) {
 
   } catch (e) {
     console.log('ingresa al error');
+    console.log(e.message)
     return res.status(400).json({ status: 400, message: e.message });
   }
 };

@@ -17,6 +17,7 @@ exports.guardaEvento = async function (req, res = response) {
     const lugar = req.body.lugar.toUpperCase(); //-
     const fecha = req.body.fecha;//-
     const hora = req.body.hora;//-
+    const observacion = req.body.observacion;//-
     const pdf = req.body.pdf;//-
     let nombreImg = req.body.nombreImg;//-
     nombreImg = nombreImg.replace(/ /g, "")
@@ -56,7 +57,7 @@ exports.guardaEvento = async function (req, res = response) {
 
         try {
                 
-        let ingresarEvento = await query(`insert into tb_eventos(codigo, tituloEvento, tipoEvento, coordinador, costo, fecha, hora, lugar, rutaImg, pdf, calificacion, usuario) values ('${codigo}','${tituloEvento}','${tipoEvento}','${coordinador}','${costo}','${fecha}','${hora}','${lugar}','${rutaImg}','${pdf}','${calificacion}','${tokenAuth}')`);
+        let ingresarEvento = await query(`insert into tb_eventos(codigo, tituloEvento, tipoEvento, coordinador, costo, fecha, hora, lugar, rutaImg, pdf, calificacion, observacion, usuario) values ('${codigo}','${tituloEvento}','${tipoEvento}','${coordinador}','${costo}','${fecha}','${hora}','${lugar}','${rutaImg}','${pdf}','${calificacion}','${observacion}'${tokenAuth}')`);
 
         return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito' });
 
@@ -111,14 +112,14 @@ exports.editarEvento = async function (req, res = response) {
     const lugar = req.body.lugar.toUpperCase(); //-
     const fecha = req.body.fecha;//-
     const hora = req.body.hora;//-
+    const observacion = req.body.observacion;//-
     const pdf = req.body.pdf;//-
     const idEvento = Number(req.body.id_evento);//-
     let nombreImg = req.body.nombreImg;//-
 
 
-/* 
-    console.log(tokenAuth);
-    console.log(codigo);
+
+/*     console.log(tokenAuth);
     console.log(coordinador);
     console.log(costo);
     console.log(tituloEvento);
@@ -126,6 +127,7 @@ exports.editarEvento = async function (req, res = response) {
     console.log(calificacion);
     console.log(lugar);
     console.log(fecha);
+    console.log(observacion);
     console.log(hora);
     console.log(estado);
     console.log(pdf);
@@ -153,7 +155,7 @@ exports.editarEvento = async function (req, res = response) {
         console.log('Archivo guardado con éxito')
 
 
-        let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', rutaImg = '${rutaImg}', pdf = '${pdf}', estado = '${estado}', calificacion = '${calificacion}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento};`);
+        let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', rutaImg = '${rutaImg}', pdf = '${pdf}', estado = '${estado}', calificacion = '${calificacion}', observacion= '${observacion}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento};`);
 
         return res.status(200).json({ code: 200, status: true, message: 'Información Editada con éxito' });
 
@@ -162,7 +164,7 @@ exports.editarEvento = async function (req, res = response) {
     } else {
       console.log('me ingresa por el else SIN Imagen');
 
-      let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', pdf = '${pdf}', estado = '${estado}', calificacion = '${calificacion}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento}`);
+      let editarEvento = await query(`UPDATE tb_eventos SET tituloEvento = '${tituloEvento}', tipoEvento = '${tipoEvento}', coordinador = '${coordinador}', costo = '${costo}', fecha = '${fecha}', hora = '${hora}', lugar = '${lugar}', pdf = '${pdf}', estado = '${estado}', calificacion = '${calificacion}', observacion= '${observacion}', usuario = '${tokenAuth}' WHERE id_evento = ${idEvento}`);
 
       return res.status(200).json({ code: 200, status: true, message: 'Información Editada con éxito sin imagen' });
 

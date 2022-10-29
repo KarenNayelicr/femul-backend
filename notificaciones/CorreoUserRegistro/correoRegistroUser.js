@@ -2,17 +2,10 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 
 
-exports.claveInicioUser = async function (emailUser, nameUser, titulo, tipoVenta, lugar, fecha, hora) {
+exports.sendMail = async function (emailUser, nameUser, titulo, tipoVenta, lugar, fecha, hora) {
 
     try { 
-      console.log(emailUser);      
-      console.log(nameUser);
-      console.log(titulo);
-      console.log(tipoVenta);
-      console.log(lugar);
-      console.log(fecha);
-      console.log(hora);
-        
+
         //Plantilla HTML
         let plantillaHTML= `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -302,7 +295,7 @@ exports.claveInicioUser = async function (emailUser, nameUser, titulo, tipoVenta
                 
           <div style="color: #000000; line-height: 200%; text-align: left; word-wrap: break-word;">
             <p style="font-size: 14px; line-height: 200%;"><strong>TÍTULO:</strong> ${titulo}</p>
-        <p style="font-size: 14px; line-height: 200%;"><strong>TIPO DE VENTA:</strong> ${tipoVenta}</p>
+        <p style="font-size: 14px; line-height: 200%;"><strong>TIPO DE EVENTO:</strong> ${tipoVenta}</p>
         <p style="font-size: 14px; line-height: 200%;"><strong>LUGAR:</strong> ${lugar}</p>
         <p style="font-size: 14px; line-height: 200%;"><strong>FECHA:</strong> ${fecha}</p>
         <p style="font-size: 14px; line-height: 200%;"><strong>HORA:</strong> ${hora}</p>
@@ -531,7 +524,7 @@ exports.claveInicioUser = async function (emailUser, nameUser, titulo, tipoVenta
         </body>
         
         </html>
-        `;        
+        `;
 
 
 

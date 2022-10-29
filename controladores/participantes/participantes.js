@@ -1,6 +1,6 @@
 const { response } = require("express");
 const { query } = require('../../database/conexion');
-const { claveInicioUser } = require("../../notificaciones/CorreoUserRegistro/correoRegistroUser")
+const { sendMail } = require("../../notificaciones/CorreoUserRegistro/correoRegistroUser")
 
 exports.agregarParticipantes = async function (req, res = response) {
 
@@ -75,7 +75,7 @@ exports.agregarParticipantes = async function (req, res = response) {
             //console.log(idEvento);
 
 
-            await claveInicioUser(email, nombres, titulo, tipoEvento, lugar, fecha, hora);            
+            await sendMail(email, nombres, titulo, tipoEvento, lugar, fecha, hora);            
 
             return res.status(200).json({ code: 200, status: true, message: 'Información guardada con éxito'});
 

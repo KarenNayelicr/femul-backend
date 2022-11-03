@@ -95,10 +95,25 @@ exports.reporteExcelEventos = async function (req, res = response) {
 
         if (consulEventos.length >= 1){
 
-            const wb = new xl.Workbook();
-            const ws = wb.addWorksheet('ejemplo');
-
+            var wb = new xl.Workbook();
             
+            var options = {
+                margins: {
+                    left: 0.2,
+                    right: 0.2
+                },
+                pageSetup: {
+                    orientation: 'landscape' //Pongo la hoja horizontal
+                },
+                printOptions: {
+                    centerHorizontal: true,
+                    centerVertical: false,
+
+                }
+            }
+
+            var ws = wb.addWorksheet('Hola', options)
+
             var styleEncabezado = wb.createStyle({
                 font: {
                     bold: true,
@@ -113,11 +128,12 @@ exports.reporteExcelEventos = async function (req, res = response) {
                     horizontal: 'center',
                     vertical: 'center'
                 },
+                //Con esto pinto las celdas
                 fill: {
                     type: 'pattern', // the only one implemented so far.
                     patternType: 'solid', // most common.
                     fgColor: '98EB52', //verde
-                } 
+                }
             });
 
             var style = wb.createStyle({
@@ -139,7 +155,7 @@ exports.reporteExcelEventos = async function (req, res = response) {
                 }    
             });            
 
-            ws.cell(1, 1, 2, 8, true).string("Registro de Eventos").style(styleEncabezado);
+            ws.cell(1, 1, 2, 13, true).string("Registro de Eventos").style(styleEncabezado);
             //ws.cell(1, 3, 1, 4, true).string("Merge Cell B").style(style);
 
             ws.cell(4, 1).string("Código").style(style);

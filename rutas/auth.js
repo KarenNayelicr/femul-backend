@@ -4,7 +4,7 @@ const { consultasABC, consultas123 } = require("../controladores/consultas");
 const { loginIngreso, sesionActiva } = require("../controladores/user/login");
 const { consultarParticipantes, agregarParticipantes } = require("../controladores/participantes/participantes")
 const { guardaEvento, cargaPhotoEvento, cargaEventos, cargaEventosRegistro, editarEvento } = require("../controladores/evento/eventos");
-const { reporteExcel } = require("../controladores/reportes/excel");
+const { reporteExcel, reporteExcelEventos } = require("../controladores/reportes/excel");
 
 
 /* Login de ingreso */
@@ -24,6 +24,7 @@ AuthRoutes.post("/agregarParticipantes", agregarParticipantes);
 
 /* Reporte Excel */
 AuthRoutes.get("/reporteExcel", reporteExcel);
+AuthRoutes.get("/reporteExcelEventos", reporteExcelEventos);
 
 /* Rutas de Ejemplo*/
 AuthRoutes.get("/consultas", consultasABC);

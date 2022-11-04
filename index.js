@@ -23,6 +23,7 @@ app.use('/api/auth', AuthRoutes)
 
 //función de middleware
 app.use('/static', express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/public/reportes/'));
 app.use(bodyParser.json({limit: '10mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 

@@ -235,3 +235,23 @@ exports.cargaEventosRegistro = async function (req, res = response) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+
+exports.cuentaEventos = async function (req, res = response) {
+
+  try {
+
+    let cargaEventos = await query(`select count(*) as contador from tb_eventos;`);
+    let cargaParticipantes = await query(`select count(*) as contador2 from tb_participantes;`);
+    let cargaUsuarios = await query(`select count(*) as contador3 from tb_usuarios;`);
+
+
+    return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', contadorEventos: cargaEventos[0]['contador'], contadorParticipantes: cargaParticipantes[0]['contador2'], contadorUsuario: cargaUsuarios[0]['contador3'] });
+
+
+
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};    

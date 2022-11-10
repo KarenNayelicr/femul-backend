@@ -90,7 +90,7 @@ exports.reporteExcelEventos = async function (req, res = response) {
     try {
 
 
-        let consulEventos = await query(`select tb_e.codigo, tb_e.tituloEvento, tb_e.tipoEvento, tb_e.costo, tb_e.fecha, tb_e.hora, tb_e.lugar, 
+        let consulEventos = await query(`select tb_e.codigo, tb_e.coordinador, tb_e.tituloEvento, tb_e.tipoEvento, tb_e.costo, tb_e.fecha, tb_e.hora, tb_e.lugar, 
         tb_e.rutaImg, tb_e.pdf, tb_e.estado, tb_e.calificacion, tb_e.observacion, tb_e.fechRegistro 
         from tb_eventos tb_e;`);
 
@@ -198,7 +198,7 @@ exports.reporteExcelEventos = async function (req, res = response) {
                 ws.cell(fila, 9).link((consulEventos[i]['rutaImg']), 'rutaImagen', 'AppFemul.com');
                 ws.cell(fila, 10).link((consulEventos[i]['pdf']), 'rutaPdf', 'AppFemul.com')
                 ws.cell(fila, 11).string(consulEventos[i]['estado']).style(style2);
-                ws.cell(fila, 12).string(consulEventos[i]['calificación']).style(style2);
+                ws.cell(fila, 12).string(consulEventos[i]['calificacion']).style(style2);
                 ws.cell(fila, 13).string(consulEventos[i]['observacion']).style(style2);
 
                 fila = fila + 1

@@ -97,6 +97,7 @@ exports.reportePDF = async function (req, res = response) {
         };
 
         const printer = new PdfPrinter(fonts);
+        var temp123;
 
         //Aqui genero el pdf
         let pdfDoc = printer.createPdfKitDocument(docDefinition);
@@ -104,14 +105,19 @@ exports.reportePDF = async function (req, res = response) {
         pdfDoc.end();
 
 
-        function downloadFile() {
-            res.download(pdfDoc);
+        function downloadFile(){
+            res.download(path.join(__dirname, '../../public/reportes/reporteEventos.pdf'));
         }
-
         //Con esto envío a descargar al archivo
-        //downloadFile();
-        //return false;
-        return res.status(200).json({ code: 200, status: true, message: 'Archivo Pdf Creado' });
+
+        setTimeout(() => {
+            downloadFile();
+            return false;
+        }, 3000);
+
+
+        
+        //return res.status(200).json({ code: 200, status: true, message: 'Archivo Pdf Creado' });
 
         console.log('creado');
 

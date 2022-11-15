@@ -47,7 +47,8 @@ exports.agregarParticipantes = async function (req, res = response) {
         let consulParticipantes = await query(`select * from tb_participantes where dni = '${dni}';`);
 
         if (consulParticipantes.length >= 1){
-            idParticipante = consulParticipantes[0].id_participante;
+            idParticipante = Number(consulParticipantes[0].id_participante);
+            console.log('El id participantes existente es: ' + idParticipante);
             let updateParticipantes = await query(`UPDATE tb_participantes SET institucion = '${institucion}', distrito = '${distrito}', region = '${region}', provincia = '${provincia}', cargo = '${cargo}', email = '${email}', movil = '${movil}', telefono = '${telefono}' WHERE dni = ${dni};`);
 
         }else{
@@ -55,7 +56,8 @@ exports.agregarParticipantes = async function (req, res = response) {
             let aggParticipante = await query(`insert into tb_participantes(dni, nombres, institucion, distrito, region, provincia, cargo, email, movil, telefono) values ('${dni}', '${nombres}', '${institucion}', '${distrito}', '${region}', '${provincia}', '${cargo}', '${email}', '${movil}', '${telefono}')`);
 
             let extraeUltParticipante = await query(`select * from tb_participantes order by id_Participante desc limit 1;`);
-            idParticipante = extraeUltParticipante[0]['id_participante'];
+            idParticipante = Number(extraeUltParticipante[0]['id_participante']);
+            console.log('El id participantes nuevo es: ' + idParticipante);
 
         }
 

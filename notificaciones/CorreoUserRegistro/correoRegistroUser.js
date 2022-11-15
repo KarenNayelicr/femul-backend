@@ -528,10 +528,10 @@ exports.sendMail = async function (emailUser, nameUser, titulo, tipoVenta, lugar
 
 
 
-        const CLIENTD_ID = "547515207316-1suvnlmfm6rubqf04geqbnn71nsqqr5k.apps.googleusercontent.com"; //"996651747696-i6pqfo3kri3dushdta7hb6ptspbj121e.apps.googleusercontent.com";
-        const CLIENT_SECRET = "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"; //"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";
+        const CLIENTD_ID = "547515207316-f79b8m9ah656v64vhusll36v3cgmao30.apps.googleusercontent.com"; //"996651747696-i6pqfo3kri3dushdta7hb6ptspbj121e.apps.googleusercontent.com";
+        const CLIENT_SECRET = "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"; //"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";
         const REDIRECT_URI = "https://developers.google.com/oauthplayground"; //"https://developers.google.com/oauthplayground";
-        const REFRESH_TOKEN = "1//04JmUwsUXPqIsCgYIARAAGAQSNwF-L9Ir863YocYqDDErLQT-vur9LSTKuDhqb-BqBkWYfONE_nogzIEjokZGukfprCY-b3aU2YU"; //"1//045hdCuFvj_c5CgYIARAAGAQSNwF-L9IrpkJAdEKAUhGPZZCGcwQgMOpPq9_hMUJvnw9pqgdA1DL1FE8v0oDCgYsnqHKNysLIwXE";
+        const REFRESH_TOKEN = "1//04T1JYJDgYYTICgYIARAAGAQSNwF-L9IrDYnIIft9FXeogIk7uPjA9LX3iVN2JkPp3usjToLtulllqDVMuEE6_f3Z08QS1sLvSjk"; //"1//045hdCuFvj_c5CgYIARAAGAQSNwF-L9IrpkJAdEKAUhGPZZCGcwQgMOpPq9_hMUJvnw9pqgdA1DL1FE8v0oDCgYsnqHKNysLIwXE";
     
     
     

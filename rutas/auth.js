@@ -5,7 +5,7 @@ const { loginIngreso, sesionActiva } = require("../controladores/user/login");
 const { consultarParticipantes, agregarParticipantes } = require("../controladores/participantes/participantes")
 const { guardaEvento, eliminarEvento, cargaPhotoEvento, cargaEventos, cargaEventosRegistro, editarEvento, cuentaEventos } = require("../controladores/evento/eventos");
 const { reporteExcel, reporteExcelEventos, reporteDetallado, reporteExcelGeneral, reporteExcelParticipantes } = require("../controladores/reportes/excel");
-const { reportePDF, reportePDFAfiliados } = require("../controladores/reportes/pdf");
+const { reportePDF, reportePDFAfiliados, reporteGeneral } = require("../controladores/reportes/pdf");
 
 
 /* Login de ingreso */
@@ -35,7 +35,7 @@ AuthRoutes.get("/reporteExcelParticipantes", reporteExcelParticipantes);
 /* Reporte Pdf */
 AuthRoutes.get("/reportePDF", reportePDF);
 AuthRoutes.get("/reportePDFAfiliados", reportePDFAfiliados);
-
+AuthRoutes.get("/reporteGeneral", reporteGeneral);
 
 
 /* Rutas de Ejemplo*/

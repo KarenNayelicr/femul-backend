@@ -128,6 +128,7 @@ exports.reportePDF = async function (req, res = response) {
     }
 };
 
+
 exports.reportePDFAfiliados = async function (req, res = response) {
 
     try {
@@ -226,6 +227,122 @@ exports.reportePDFAfiliados = async function (req, res = response) {
 
         function downloadFile(){
             res.download(path.join(__dirname, '../../public/reportes/reporteParticipantes.pdf'));
+        }
+        //Con esto envío a descargar al archivo
+
+        setTimeout(() => {
+            downloadFile();
+            return false;
+        }, 3000);
+
+
+        
+        //return res.status(200).json({ code: 200, status: true, message: 'Archivo Pdf Creado' });
+
+        console.log('creado');
+
+    } catch (e) {
+        console.log('ingresa al error');
+        console.log(e);
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
+
+
+exports.reporteGeneral = async function (req, res = response) {
+
+    try {
+
+        console.log('ingresa a la funcion pdf General: ');
+        let evento = '', participante = '', tipoEvento = '', precio = '', fecha = '', hora = '', lugar = '';
+        
+
+        let consulDetallado = await query(`SELECT tb_e.codigo, tb_e.tituloEvento, tb_p.nombres as participante, tb_e.tipoEvento, tb_e.coordinador, tb_e.costo, tb_e.fecha, tb_e.hora, tb_e.lugar, 
+        tb_e.rutaImg, tb_e.pdf, tb_e.estado, tb_e.calificacion, tb_e.observacion, tb_e.fechRegistro as eventoRegistrado, tb_e.usuario, 
+        tb_p.institucion, tb_p.distrito, tb_p.region, tb_p.provincia, tb_p.cargo, tb_p.email, tb_p.movil, tb_p.telefono, tb_p.fechRegistro as fechaRegistro
+        FROM tb_eventos tb_e, tb_participantes tb_p, tb_gestion tb_g 
+        WHERE tb_e.id_evento = tb_g.fk_evento AND tb_p.id_participante = tb_g.fk_participante;`)
+
+        if (consulDetallado.length >= 1) {
+            
+            let i ;            
+            for(i=0; i < consulDetallado.length; i++){
+                evento = evento + consulDetallado[i]['tituloEvento'] + "\n\n";
+                participante = participante + consulDetallado[i]['participante'] + "\n\n"; //Se debe concatenar valores
+                tipoEvento = tipoEvento + consulDetallado[i]['tipoEvento'] + "\n\n";
+                precio = precio + consulDetallado[i]['costo'] + "\n\n";
+                fecha = fecha + consulDetallado[i]['fecha'] + "\n\n";
+                hora = hora + consulDetallado[i]['hora'] + "\n\n";
+                lugar = lugar + consulDetallado[i]['lugar'] + "\n\n";
+           }
+
+        }
+   
+
+        let content = [
+
+            { image: path.join(__dirname, '../../controladores/reportes/image/rc5.png'), width: 40, alignment: 'right', },
+
+            //ENCABEZADO INFO LABORAL
+            { text: "INFORMACIÓN RESUMIDA", alignment: 'center', fontSize: 22, bold: true, color: '#18047F' }, { text: "\n" },
+
+
+            //DETALLO LA CABECERA DE LOS TRABAJOS
+            {
+                alignment: 'center',
+                color: '#18047F',
+                fontSize: 8,
+                columns: [
+                    { width: 150, text: 'Evento', bold: true },
+                    { width: 150, text: 'Participante', bold: true },
+                    { width: 120, text: 'Tipo', bold: true },
+                    { width: 100, text: 'Precio', bold: true },
+                    { width: 70, text: 'Fecha', bold: true },
+                    { width: 70, text: 'Hora', bold: true },
+                    { width: 70, text: 'Lugar', bold: true },                    
+                ]
+            },
+
+            { text: "\n" },
+
+
+
+            {            
+                alignment: 'center',
+                fontSize: 8,
+                margin: [ 0, 0, 0, 20 ],
+                columns: [
+                    { width: 150, text: evento},
+                    { width: 150, text: participante},
+                    { width: 120, text: tipoEvento},                    
+                    { width: 100, text: precio},
+                    { width: 70, text: fecha},                    
+                    { width: 70, text: hora},
+                    { width: 70, text: lugar},
+                ]
+            },
+  
+        ]
+
+
+        let docDefinition = {
+            content: content,
+            styles: styles,
+            pageMargins: [ 5, 10, 20, 10 ],
+            pageOrientation: 'landscape', //horizontal
+        };
+
+        const printer = new PdfPrinter(fonts);
+        var temp123;
+
+        //Aqui genero el pdf
+        let pdfDoc = printer.createPdfKitDocument(docDefinition);
+        pdfDoc.pipe(fs.createWriteStream(path.join(__dirname, '../../public/reportes/reporteGeneral.pdf')));
+        pdfDoc.end();
+
+
+        function downloadFile(){
+            res.download(path.join(__dirname, '../../public/reportes/reporteGeneral.pdf'));
         }
         //Con esto envío a descargar al archivo
 

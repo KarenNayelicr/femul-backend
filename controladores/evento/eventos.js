@@ -180,6 +180,32 @@ exports.editarEvento = async function (req, res = response) {
 };
 
 
+exports.eliminarEvento = async function (req, res = response) {
+
+  try {
+    console.log('ingresa a eliminar registro');
+    
+    const idEvento = Number(req.body.id_evento);
+    console.log(idEvento);
+
+    
+    let consulParticipantes = await query(`SELECT * FROM tb_eventos tb_e, tb_gestion tb_g WHERE tb_e.id_evento = tb_g.fk_evento AND tb_e.id_evento = ${idEvento};`);
+
+    if(consulParticipantes.length >= 1){      
+      return res.status(200).json({ code: 400, status: false, message: 'Ya existen participantes' });
+    }else{
+      let eliminar = await query(`DELETE FROM tb_eventos WHERE id_evento = ${idEvento};`)
+      return res.status(200).json({ code: 200, status: false, message: 'No existen registro' });
+    }
+
+
+  } catch (e) {
+    console.log('Ingresa por aca');
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+
 exports.cargaPhotoEvento = async function (req, res = response) {
 
   try {

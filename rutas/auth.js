@@ -12,6 +12,7 @@ const { reportePDF, reportePDFAfiliados, reporteGeneral } = require("../controla
 AuthRoutes.post("/loginIngreso", loginIngreso)
 AuthRoutes.post("/sesionActiva", sesionActiva);
 
+
 /* Guarda Eventos */
 AuthRoutes.post("/guardaEvento", guardaEvento);
 AuthRoutes.post("/eliminarEvento", eliminarEvento);
@@ -20,6 +21,7 @@ AuthRoutes.get("/cargaPhotoEvento/:id", cargaPhotoEvento);
 AuthRoutes.get("/cargaEventos", cargaEventos);
 AuthRoutes.get("/cargaEventosRegistro/:id", cargaEventosRegistro);
 AuthRoutes.get("/cuentaEventos", cuentaEventos);
+
 
 /* Participantes */
 AuthRoutes.get("/consultarParticipantes/:dni", consultarParticipantes); //agregarParticipantes

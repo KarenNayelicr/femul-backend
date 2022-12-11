@@ -262,22 +262,136 @@ exports.cargaEventosRegistro = async function(req, res = response) {
     }
 };
 
-
-exports.cuentaEventos = async function(req, res = response) {
+exports.cargaExitos = async function (req, res = response) {
 
     try {
-
-        let cargaEventos = await query(`select count(*) as contador from tb_eventos;`);
-        let cargaParticipantes = await query(`select count(*) as contador2 from tb_participantes;`);
-        let cargaUsuarios = await query(`select count(*) as contador3 from tb_usuarios;`);
-
-
-        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', contadorEventos: cargaEventos[0]['contador'], contadorParticipantes: cargaParticipantes[0]['contador2'], contadorUsuario: cargaUsuarios[0]['contador3'] });
-
-
-
+  
+      let cargaExitos = await query(`SELECT COUNT(*) AS contador4 FROM tb_eventos where calificacion = "Realizado con éxito."`);
+  
+      if (cargaExitos.length >= 1) {
+        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', cargaExitos: cargaExitos });
+      } else {
+        return res.status(200).json({ code: 204, status: false, message: 'No existe eventos' });
+      }
+  
     } catch (e) {
-        console.log(e);
-        return res.status(400).json({ status: 400, message: e.message });
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
     }
-};
+  };
+  exports.cargaExitosRegistro = async function (req, res = response) {
+  
+    try {
+  
+      const { calificacion } = req.params;
+  
+      let cargaExitos = await query(`select * from tb_eventos where codigo = '${calificacion}';`);
+  
+      if (cargaExitos.length >= 1) {
+        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', cargaExito: cargaExitos });
+      } else {
+        return res.status(200).json({ code: 204, status: false, message: 'No existe eventos' });
+      }
+  
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  };
+  exports.cargaDificultades = async function (req, res = response) {
+  
+    try {
+  
+      let cargaExitos = await query(`SELECT COUNT(*) AS contador5 FROM tb_eventos where calificacion = "Realizado con dificulades."`);
+  
+      if (cargaDificultades.length >= 1) {
+        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', cargaDificultades: cargaDificultades});
+      } else {
+        return res.status(200).json({ code: 204, status: false, message: 'No existe eventos' });
+      }
+  
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  };
+  exports.cargaDificultadesRegistro = async function (req, res = response) {
+  
+    try {
+  
+      const { calificacion } = req.params;
+  
+      let cargaDificultades = await query(`select * from tb_eventos where codigo = '${calificacion}';`);
+  
+      if (cargaDificultades.length >= 1) {
+        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', cargaDificultade: cargaDificultades });
+      } else {
+        return res.status(200).json({ code: 204, status: false, message: 'No existe eventos' });
+      }
+  
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  };
+  exports.cargaProcesos = async function (req, res = response) {
+  
+    try {
+  
+      let cargaProcesos = await query(`SELECT COUNT(*) AS contador6 FROM tb_eventos where calificacion = "En proceso.."`);
+  
+      if (cargaProcesos.length >= 1) {
+        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', cargaProcesos: cargaProcesos});
+      } else {
+        return res.status(200).json({ code: 204, status: false, message: 'No existe eventos' });
+      }
+  
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  };
+  exports.cargaProcesoRegistro = async function (req, res = response) {
+  
+    try {
+  
+      const { calificacion } = req.params;
+  
+      let cargaProcesos = await query(`select * from tb_eventos where codigo = '${calificacion}';`);
+  
+      if (cargaProcesos.length >= 1) {
+        return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', cargaProceso: cargaProcesos });
+      } else {
+        return res.status(200).json({ code: 204, status: false, message: 'No existe eventos' });
+      }
+  
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  };
+  exports.cuentaEventos = async function (req, res = response) {
+  
+    try {
+  
+      let cargaEventos = await query(`select count(*) as contador from tb_eventos;`);
+      let cargaParticipantes = await query(`select count(*) as contador2 from tb_participantes;`);
+      let cargaUsuarios = await query(`select count(*) as contador3 from tb_usuarios;`);
+      let cargaExitos = await query(`SELECT COUNT(*) AS contador4 FROM tb_eventos where calificacion = "Realizado con éxito.";`);
+      let cargaDificultades = await query(`SELECT COUNT(*) AS contador5 FROM tb_eventos where calificacion = "Realizado con dificultades.";`); 
+      let cargaProcesos = await query(`SELECT COUNT(*) AS contador6 FROM tb_eventos where calificacion = "En proceso..";`);
+  
+      return res.status(200).json({ code: 200, status: true, message: 'Datos consultados', 
+                                            contadorEventos: cargaEventos[0]['contador'], 
+                                            contadorParticipantes: cargaParticipantes[0]['contador2'], 
+                                            contadorUsuario: cargaUsuarios[0]['contador3'] , 
+                                            contadorExito: cargaExitos[0]['contador4'],
+                                            contadorDificultades: cargaDificultades[0]['contador5'],
+                                            contadorProceso: cargaProcesos[0]['contador6'],
+                                          }
+  
+      )}catch (e) {
+      console.log(e);
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  };
